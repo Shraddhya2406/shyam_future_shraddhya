@@ -22,7 +22,11 @@
             <tr>
             <td>{{ $item['id'] }}</td>
             <td>{{ $item['name'] }}</td>
-            <td>{{ $item['image'] }}</td>
+            <td>
+                @if (!empty($item['thumb_image']))
+                    <img src="{{ !empty($item['thumb_image']) ? url(env('IMAGE_PATH')). '/' . $item['thumb_image'] : '' }}" alt="Image">
+                @endif
+            </td>
             <td>{{ $item['address'] }}</td>
             <td>{{ $item['gender'] }}</td>
             <td>
@@ -35,6 +39,7 @@
     </table>
   </div>
   
+  @include('users.add')
 @endsection
 
 @section('css')
@@ -60,5 +65,52 @@
         $('#user-table').DataTable();
         $('.dataTables_length').addClass('bs-select');
     });
+    $(document).on('click', '.btnAdd',function(event){
+            $('#add_users_frm')[0].reset();
+            $("#add_users_modal").modal('show');
+    });
+
+    $("#add_users_frm").validate({
+        rules: {
+            name: {
+                required: true,
+            },
+            address: {
+                required: true
+            },
+            image: {
+                required: true
+            },
+            gender: {
+                required: true
+            },
+        },
+        messages: {
+            name: {
+                required: "Name is required",
+            },
+            address: {
+                required: "Address is required"
+            },
+            gender: {
+                required: "Gender is required"
+            },
+            image: {
+                required: "Image is required"
+            },
+        },
+        errorPlacement: function(error, element) {
+			var placement = $(element).data('error');
+			if (placement) {
+				$(placement).append(error)
+			} else {
+				error.insertAfter(element);
+			}
+		},
+        submitHandler: function() { 
+            return true;
+        }
+    });
+
   </script>
 @endsection
