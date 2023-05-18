@@ -53,7 +53,7 @@ class UserController extends Controller
 
         //create thumbnail
         $originalImage = Image::make($source_url);
-        $originalImage->resize(180, 100)->save($source_url_thumb,85);
+        $originalImage->resize(65, 50)->save($source_url_thumb,85);
  
         $new_user = [
             'id'=>$new_id,
@@ -114,7 +114,7 @@ class UserController extends Controller
     
                 //create thumbnail
                 $originalImage = Image::make($source_url);
-                $originalImage->resize(180, 100)->save($source_url_thumb,85);
+                $originalImage->resize(65, 50)->save($source_url_thumb,85);
 
                 $image_path = $input['media_url'];
                 $thumb_image_path = $thumb_name;

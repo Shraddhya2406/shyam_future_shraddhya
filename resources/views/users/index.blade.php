@@ -24,7 +24,7 @@
             <td>{{ $item['name'] }}</td>
             <td>
                 @if (!empty($item['thumb_image']))
-                    <img src="{{ !empty($item['thumb_image']) ? url(env('IMAGE_PATH')). '/' . $item['thumb_image'] : '' }}" alt="Image">
+                    <img src="{{ !empty($item['thumb_image']) ? url(env('IMAGE_PATH')). '/' . $item['thumb_image'] : '' }}" alt="Image"  class="img-thumbnail rounded-circle">
                 @endif
             </td>
             <td>{{ $item['address'] }}</td>
