@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+Route::post('/users-create', [App\Http\Controllers\UserController::class, 'add'])->name('users.create');
+Route::match(['get', 'post'],'/users-edit', [App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
+Route::get('/users-delete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('users.delete');
