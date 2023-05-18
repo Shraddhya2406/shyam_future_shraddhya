@@ -43,7 +43,7 @@
                             <div class="form-group">
                                 <label for="image">Image</label>
                                 <input type="file" name="image" id="image" class="form-control">
-                                <span id="error-gender" class="error"></span>
+                                <span id="error-image" class="error"></span>
                             </div>
                         </div>
                     </div>

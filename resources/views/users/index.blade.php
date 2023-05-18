@@ -40,6 +40,7 @@
   </div>
   
   @include('users.add')
+  <div id="edit_modal_section"></div>
 @endsection
 
 @section('css')
@@ -112,5 +113,64 @@
         }
     });
 
+    $(document).on('click', '.editBtn',function(event){
+        var id = $(this).data('id');
+        
+        $.ajax({
+            url:  "{{route('users.edit')}}",
+            type: "get",
+            datatype: "JSON",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                "id": id,
+            },
+            success: function (data) {                    
+                if(data.status == 200) { 
+                    $('#edit_modal_section').html(data.edit_modal_view);
+                    $("#edit_users_modal").modal('show');
+                    
+                    $("#edit_users_frm").validate({
+                        rules: {
+                            edit_name: {
+                                required: true,
+                            },
+                            edit_address: {
+                                required: true
+                            },
+                            edit_gender: {
+                                required: true
+                            },
+                        },
+                        messages: {
+                            edit_name: {
+                                required: "Name is required",
+                            },
+                            edit_address: {
+                                required: "Address is required"
+                            },
+                            edit_gender: {
+                                required: "Gender is required"
+                            },
+                        },
+                        errorPlacement: function(error, element) {
+                            var placement = $(element).data('error');
+                            if (placement) {
+                                $(placement).append(error)
+                            } else {
+                                error.insertAfter(element);
+                            }
+                        },
+                        submitHandler: function() {
+                            return true;
+                        }
+                    });
+
+                } else {
+                    toastr.error('Something went wrong!', "Error");
+                }
+            }
+        });    
+
+    });
   </script>
 @endsection
