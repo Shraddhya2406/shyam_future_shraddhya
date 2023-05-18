@@ -51,7 +51,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         @if (!empty($user['thumb_image']))
-                            <img src="{{ !empty($user['thumb_image']) ? url(env('IMAGE_PATH')). '/' . $user['thumb_image'] : '' }}" alt="Image">
+                            <img src="{{ !empty($user['thumb_image']) ? url(env('IMAGE_PATH')). '/' . $user['thumb_image'] : '' }}" alt="Image" class="img-thumbnail rounded">
                         @endif
                     </div>
                 </div>

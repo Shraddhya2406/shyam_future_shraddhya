@@ -17,3 +17,4 @@ Route::get('/', [App\Http\Controllers\UserController::class, 'index'])->name('us
 Route::post('/users-create', [App\Http\Controllers\UserController::class, 'add'])->name('users.create');
 Route::match(['get', 'post'],'/users-edit', [App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
 Route::get('/users-delete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('users.delete');
+Route::get('/users-view', [App\Http\Controllers\UserController::class, 'view'])->name('users.view');

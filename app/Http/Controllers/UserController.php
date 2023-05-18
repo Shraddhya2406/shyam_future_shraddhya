@@ -164,6 +164,20 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
+    // function to view user data
+    public function view(Request $request){
+        $users = !empty(Session::get('users')) ? Session::get('users') : [];
+        $data = $this->find($request->id);
+        $user = $data['user'];
+        $key = $data['key'];
+        if (empty($user) && $key == -1) {
+            Session::flash('error', 'No user found');
+            return redirect()->back();
+        }
+        $view_modal_view = view('users.view',compact('user'))->render();
+        return response()->json(['status' => 200, 'view_modal_view' => $view_modal_view]);
+    }
+
     // function to find user data
     private function find($id){
         $users = !empty(Session::get('users')) ? Session::get('users') : [];

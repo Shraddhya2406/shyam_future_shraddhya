@@ -9,12 +9,12 @@
     <table class="table table-striped table-hover table-sm dataTable" id="user-table">
       <thead>
         <tr>
-          <th>#ID</th>
+          <th width="5%">#ID</th>
           <th>Name</th>
           <th data-orderable="false">Image</th>
           <th data-orderable="false">Address</th>
           <th data-orderable="false">Gender</th>
-          <th data-orderable="false">Action</th>
+          <th data-orderable="false" width="10%">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -32,6 +32,7 @@
             <td>
                 <a href="#" class="editBtn" data-id="{{ $item['id'] }}">Edit</a>
                 <a href="{{ route('users.delete',[$item['id']]) }}" class="deleteBtn">Delete</a>
+                <a href="javascript:void(0)" data-href="{{ route('users.view') }}" data-id="{{ $item['id'] }}" class="viewBtn">View</a>
             </td>
             </tr>
         @endforeach
@@ -41,6 +42,7 @@
   
   @include('users.add')
   <div id="edit_modal_section"></div>
+  <div id="view_modal_section"></div>
 @endsection
 
 @section('css')
@@ -172,5 +174,26 @@
         });    
 
     });
+
+    $(document).on('click', '.viewBtn', function(){
+        var url = $(this).data('href');
+        var id = $(this).data('id');
+        
+        $.ajax({
+            url:  url,
+            type: "get",
+            datatype: "JSON",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                "id": id,
+            },
+            success: function (data) {                    
+                if(data.status == 200) { 
+                    $('#view_modal_section').html(data.view_modal_view);
+                    $("#view_users_modal").modal('show');
+                }
+            }
+        });
+    })
   </script>
 @endsection
